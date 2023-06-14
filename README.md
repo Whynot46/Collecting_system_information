@@ -1,2 +1,2 @@
-# Collecting-_system_information
+# Collecting_system_information
  Collecting  system information for Windows or Linux
