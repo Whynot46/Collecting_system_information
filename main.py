@@ -4,6 +4,7 @@ import psutil
 from platform import uname
 
 base_padding = {'padx': 10, 'pady': 8}
+office = None
 
 
 class Enter_Office():
@@ -14,14 +15,21 @@ class Enter_Office():
         self.window.resizable(False, False)
         CTk.set_appearance_mode("dark")
         CTk.set_default_color_theme("dark-blue")
+        self.open_window()
 
+    def open_window(self):
         self.office_label = CTk.CTkLabel(self.window, font=CTk.CTkFont(size=20, weight="bold"), text='Номер кабинета', **base_padding)
         self.office_label.pack()
         self.office_entry = CTk.CTkEntry(self.window)
         self.office_entry.pack()
-        self.office_btn = CTk.CTkButton(self.window, text='Экспортировать system info', font=CTk.CTkFont(size=20, weight="bold"), command=main)
+        self.office_btn = CTk.CTkButton(self.window, text='Экспортировать system info', font=CTk.CTkFont(size=20, weight="bold"), command=self.save_office)
         self.office_btn.pack(**base_padding)
         self.window.mainloop()
+
+    def save_office(self):
+        global office
+        office = self.office_entry.get()
+        main()
 
 
 def correct_size(bts, ending='iB'):
@@ -123,7 +131,7 @@ def print_info(dict_info):
                     f"\t- IPv6: {dict_info['info'][item][elem]['ipv6']}\n")
 
 def save_txt(dict_info):
-    file = open(f'./Users_system_info/{Enter_Office.office_entry.get()}_{uname().node}.txt', 'a')
+    file = open(f'./Users_system_info/{office}_{uname().node}.txt', 'a')
     for item in dict_info['info']:
         if item == "system_info":
             for elem in dict_info['info'][item]:
