@@ -1,0 +1,3 @@
+customtkinter==5.1.3 
+psutil==5.9.5
+lib-platform==1.2.7
